@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — JobDone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow: #FFD100;
+      --yellow-dark: #E6BC00;
+      --black: #0a0a0a;
+      --dark: #141414;
+      --card: #1a1a1a;
+      --border: #222222;
+      --text: #ffffff;
+      --muted: #888888;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--text); }
+    nav { padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--yellow); }
+    .nav-back { font-size: 14px; color: var(--muted); text-decoration: none; }
+    .nav-back:hover { color: var(--yellow); }
+    .content { max-width: 680px; margin: 0 auto; padding: 60px 24px; }
+    .page-label { font-size: 12px; font-weight: 700; color: var(--yellow); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 1px; margin-bottom: 8px; }
+    .hero-sub { font-size: 16px; color: var(--muted); margin-bottom: 48px; line-height: 1.6; }
+    .contact-card {
+      background: var(--card);
+      border: 2px solid var(--yellow);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .contact-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .contact-card p { font-size: 15px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--yellow-dark); }
+    h2.faq-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 1px; margin-bottom: 24px; }
+    h2.faq-title span { color: var(--yellow); }
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--yellow); }
+    .faq-icon { color: var(--yellow); font-size: 20px; min-width: 20px; transition: transform 0.2s; }
+    .faq-a {
+      display: none;
+      padding: 0 20px 20px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: center; margin-top: 80px; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; margin-bottom: 16px; }
+    .footer-logo span { color: var(--yellow); }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+    .footer-links a { font-size: 14px; color: var(--muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">Job<span>Done</span></a>
+    <a href="/" class="nav-back">← Back to home</a>
+  </nav>
+
+  <div class="content">
+    <div class="page-label">Support</div>
+    <h1>How can we help?</h1>
+    <p class="hero-sub">We're a small team and we actually read every message. If something's not working or you have a question, reach out.</p>
+
+    <div class="contact-card">
+      <h2>Contact Support</h2>
+      <p>Email us and we'll get back to you within 24 hours, usually much faster.</p>
+      <a href="mailto:support@getjobdoneinvoice.app" class="btn-primary">support@getjobdoneinvoice.app</a>
+    </div>
+
+    <h2 class="faq-title">Common <span>Questions</span></h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How does the voice invoice feature work?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Tap the mic button on the home screen and speak naturally — say the client name, what work you did, and the amounts. JobDone transcribes your voice and automatically builds the invoice. You can then review and edit everything before sending.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What does the client receive?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Your client receives a professional PDF invoice via email. It includes your business name, logo, contact details, a full list of line items, totals, GST (if applicable), and payment due date.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How do automatic payment reminders work?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">When reminders are enabled in Settings, JobDone automatically sends follow-up emails to clients with unpaid invoices at 7, 14, and 30 days. You can turn reminders on or off at any time.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I send quotes as well as invoices?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Yes — just say "quote for..." instead of "invoice for..." when recording. You can also toggle between invoice and quote in the manual entry screen. Quotes can be converted to invoices with a single tap once the job is done.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How do I cancel my subscription?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">You can cancel anytime from your device's subscription settings (App Store or Google Play). Your Pro access continues until the end of the current billing period. No partial refunds are issued.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is my data secure?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Yes. All data is encrypted in transit and at rest. Your invoice data is stored securely using Supabase, a trusted cloud database provider. Voice recordings are processed in real time and never permanently stored.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I export my invoices?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Yes — go to the Invoices tab and tap "Export CSV" to download all your invoice data as a spreadsheet. Great for tax time or sharing with your accountant.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How do I delete my account?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Email us at support@getjobdoneinvoice.app and we'll permanently delete your account and all associated data within 30 days.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Job<span>Done</span></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/support.html">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 JobDone. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

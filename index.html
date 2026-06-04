@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobDone — Speak it. Send it. Done.</title>
+  <meta name="description" content="The invoicing app built for tradespeople. Speak your invoice, send it in seconds. No typing. No hassle. Just get paid.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #FFD100;
+      --yellow-dark: #E6BC00;
+      --yellow-soft: #FFF8CC;
+      --black: #0a0a0a;
+      --dark: #141414;
+      --card: #1a1a1a;
+      --border: #222222;
+      --text: #ffffff;
+      --muted: #888888;
+      --body: #f7f7f7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--text);
+    }
+
+    .nav-logo span { color: var(--yellow); }
+
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--yellow-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,209,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,209,0,0.1);
+      border: 1px solid rgba(255,209,0,0.3);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--yellow);
+      font-weight: 600;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 16vw, 100px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 span { color: var(--yellow); }
+
+    .hero-sub {
+      font-size: clamp(16px, 4vw, 20px);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 320px;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 18px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    .hero-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      animation: fadeUp 0.6s ease 0.4s both;
+    }
+
+    .hero-note strong { color: var(--yellow); }
+
+    /* ── PHONE MOCKUP ── */
+    .mockup-section {
+      padding: 0 24px 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-frame {
+      width: 260px;
+      height: 520px;
+      background: var(--dark);
+      border-radius: 40px;
+      border: 2px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(255,209,0,0.1), 0 0 0 1px rgba(255,255,255,0.05);
+      animation: fadeUp 0.8s ease 0.5s both;
+    }
+
+    .phone-notch {
+      width: 80px; height: 22px;
+      background: var(--black);
+      border-radius: 0 0 14px 14px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .phone-screen {
+      background: var(--black);
+      height: 100%;
+      padding: 0 0 20px;
+    }
+
+    .phone-hero-bar {
+      background: var(--black);
+      padding: 12px 16px 16px;
+    }
+
+    .phone-date { font-size: 10px; color: var(--yellow); margin-bottom: 8px; }
+
+    .phone-greeting {
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .phone-balance-card {
+      background: #141414;
+      border: 1px solid rgba(255,209,0,0.3);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .phone-bal-label { font-size: 8px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.5px; }
+    .phone-bal-value { font-size: 22px; font-weight: 800; color: white; }
+    .phone-bal-sub { font-size: 9px; color: var(--yellow); opacity: 0.7; }
+
+    .phone-stats { display: flex; gap: 6px; }
+
+    .phone-stat {
+      flex: 1;
+      background: #141414;
+      border: 1px solid rgba(255,209,0,0.2);
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .phone-stat-label { font-size: 7px; color: var(--yellow); text-transform: uppercase; }
+    .phone-stat-value { font-size: 13px; font-weight: 800; color: white; }
+
+    .phone-body { padding: 10px 14px; }
+
+    .phone-mic-btn {
+      background: var(--yellow);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .phone-mic-icon { font-size: 22px; margin-bottom: 4px; }
+    .phone-mic-text { font-size: 12px; font-weight: 700; color: var(--black); }
+    .phone-mic-sub { font-size: 9px; color: rgba(0,0,0,0.5); }
+
+    .phone-manual {
+      background: white;
+      border-radius: 10px;
+      padding: 11px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section {
+      padding: 80px 24px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 10vw, 60px);
+      line-height: 1;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title span { color: var(--yellow); }
+
+    .steps { display: flex; flex-direction: column; gap: 24px; }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+
+    .step:hover { border-color: rgba(255,209,0,0.3); }
+
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      line-height: 1;
+      color: var(--yellow);
+      min-width: 40px;
+    }
+
+    .step-content h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255,209,0,0.3);
+      transform: translateY(-2px);
+    }
+
+    .feature-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      padding: 80px 24px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .promo-banner {
+      background: rgba(255,209,0,0.1);
+      border: 1px solid rgba(255,209,0,0.3);
+      border-radius: 12px;
+      padding: 14px 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .promo-banner p {
+      font-size: 14px;
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    .pricing-card {
+      background: var(--card);
+      border: 2px solid var(--yellow);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .pricing-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .pricing-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      line-height: 1;
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+
+    .pricing-per {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .pricing-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      color: var(--text);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li:last-child { border-bottom: none; }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 14px;
+      min-width: 16px;
+    }
+
+    .pricing-regular {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── TESTIMONIAL / SOCIAL PROOF ── */
+    .proof-section {
+      padding: 80px 24px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .trades-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    .trade-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── EMAIL SIGNUP ── */
+    .signup-section {
+      padding: 80px 24px;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .signup-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 24px;
+    }
+
+    .signup-card h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .signup-card h2 span { color: var(--yellow); }
+
+    .signup-card p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .signup-input {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 15px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .signup-input::placeholder { color: var(--muted); }
+    .signup-input:focus { border-color: var(--yellow); }
+
+    .signup-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo span { color: var(--yellow); }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--yellow); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SCREENSHOTS ── */
+    .screenshots-section { overflow: hidden; }
+
+    .screenshots-scroll {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 0 24px 40px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+
+    .screenshot-wrap {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      scroll-snap-align: center;
+    }
+
+    .screenshot-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .ss-phone {
+      width: 220px;
+      height: 440px;
+      background: #0a0a0a;
+      border-radius: 32px;
+      border: 2px solid #222;
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(255,209,0,0.08), 0 0 0 1px rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ss-notch {
+      width: 60px; height: 16px;
+      background: #0a0a0a;
+      border-radius: 0 0 10px 10px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+
+    .ss-hero-bar {
+      background: #0a0a0a;
+      padding: 8px 12px 12px;
+      flex-shrink: 0;
+    }
+
+    .ss-date { font-size: 9px; color: #FFD100; margin-bottom: 6px; }
+
+    .ss-greeting {
+      font-size: 12px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .ss-bal-card {
+      background: #141414;
+      border: 1px solid rgba(255,209,0,0.25);
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .ss-bal-label { font-size: 7px; color: #FFD100; text-transform: uppercase; letter-spacing: 0.4px; }
+    .ss-bal-value { font-size: 20px; font-weight: 800; color: white; }
+    .ss-bal-sub { font-size: 8px; color: #FFD100; opacity: 0.7; }
+
+    .ss-stats-row { display: flex; gap: 5px; }
+
+    .ss-stat {
+      flex: 1;
+      background: #141414;
+      border: 1px solid rgba(255,209,0,0.15);
+      border-radius: 6px;
+      padding: 6px;
+      text-align: center;
+    }
+
+    .ss-stat-label { font-size: 6px; color: #FFD100; text-transform: uppercase; }
+    .ss-stat-val { font-size: 11px; font-weight: 800; color: white; }
+
+    .ss-body {
+      flex: 1;
+      background: #f7f7f7;
+      overflow: hidden;
+      padding: 8px 10px;
+    }
+
+    .ss-mic-btn {
+      background: #FFD100;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .ss-manual-btn {
+      background: white;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 9px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .ss-section-hdr {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .ss-invoice-list {
+      background: white;
+      border: 1px solid #efefef;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .ss-inv-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 10px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .ss-init-circle {
+      width: 26px; height: 26px;
+      border-radius: 13px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #555;
+      flex-shrink: 0;
+    }
+
+    .ss-inv-name { font-size: 10px; font-weight: 600; color: #0a0a0a; }
+    .ss-inv-meta { font-size: 8px; color: #aaa; margin-top: 1px; }
+    .ss-inv-amt { font-size: 10px; font-weight: 700; color: #0a0a0a; }
+
+    .ss-badge {
+      font-size: 7px;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 2px 6px;
+      margin-top: 2px;
+      display: inline-block;
+    }
+
+    .ss-paid { background: #f0fdf4; color: #15803d; }
+    .ss-unpaid { background: #fff7ed; color: #c2410c; }
+    .ss-overdue { background: #fef2f2; color: #b91c1c; }
+    .ss-quote { background: #eff6ff; color: #1d4ed8; }
+
+    .ss-filter-pill {
+      font-size: 9px;
+      font-weight: 600;
+      color: #aaa;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 4px 10px;
+      background: white;
+    }
+
+    .ss-filter-active {
+      background: #FFD100;
+      border-color: #FFD100;
+      color: #0a0a0a;
+      font-weight: 700;
+    }
+
+    .ss-mic-ring-active {
+      width: 72px; height: 72px;
+      border-radius: 36px;
+      background: #fff0f0;
+      border: 2px solid #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ss-transcript-card {
+      background: #141414;
+      border: 1px solid rgba(255,209,0,0.2);
+      border-radius: 8px;
+      padding: 10px 12px;
+      width: 100%;
+    }
+
+    .ss-card {
+      background: white;
+      border: 1px solid #efefef;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+
+    .ss-card-label {
+      font-size: 7px;
+      font-weight: 700;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .ss-divider { height: 1px; background: #f0f0f0; margin: 8px 0; }
+
+    .ss-line-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .ss-send-btn {
+      background: #FFD100;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0a0a0a;
+    }
+
+    .ss-check-ring {
+      width: 44px; height: 44px;
+      border-radius: 22px;
+      border: 2px solid #FFD100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #FFD100;
+      font-weight: 800;
+      margin: 0 auto 8px;
+    }
+
+    .ss-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .ss-sum-label { font-size: 9px; color: #aaa; }
+    .ss-sum-val { font-size: 10px; font-weight: 500; color: #0a0a0a; }
+
+    .ss-share-btn {
+      flex: 1;
+      background: white;
+      border: 1px solid #efefef;
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      font-size: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Job<span>Done</span></div>
+    <a href="#signup" class="nav-cta">Get Early Access</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Built for US Tradespeople
+    </div>
+    <h1>Invoice<br><span>Done.</span></h1>
+    <p class="hero-sub">Speak your invoice on the job. It's sent to your client in seconds. No typing. No desk. No hassle.</p>
+    <div class="hero-buttons">
+      <a href="#signup" class="btn-primary">Get Early Access — $4.99/mo</a>
+      <a href="#how" class="btn-secondary">See how it works</a>
+    </div>
+    <p class="hero-note">First 50 users get <strong>$4.99/mo for 3 months</strong> — then $6.99/mo</p>
+  </section>
+
+  <!-- PHONE MOCKUP -->
+  <div class="mockup-section">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-notch"></div>
+        <div class="phone-hero-bar">
+          <div class="phone-date">Thu 4 June</div>
+          <div class="phone-greeting">John, here's your<br>financial overview.</div>
+          <div class="phone-balance-card">
+            <div class="phone-bal-label">Total Outstanding</div>
+            <div class="phone-bal-value">$5,830.00</div>
+            <div class="phone-bal-sub">18 unpaid invoices</div>
+          </div>
+          <div class="phone-stats">
+            <div class="phone-stat">
+              <div class="phone-stat-label">Paid this month</div>
+              <div class="phone-stat-value">$1,530</div>
+            </div>
+            <div class="phone-stat">
+              <div class="phone-stat-label">Total earned</div>
+              <div class="phone-stat-value">$12,480</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-body">
+          <div class="phone-mic-btn">
+            <div class="phone-mic-icon">🎙️</div>
+            <div class="phone-mic-text">Speak your invoice</div>
+            <div class="phone-mic-sub">client · work done · amount</div>
+          </div>
+          <div class="phone-manual">+ Enter manually</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">Three steps.<br><span>Get paid.</span></h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Speak your invoice</h3>
+          <p>Just say the client name, what you did, and the amount. JobDone transcribes your voice and builds the invoice automatically.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Review and adjust</h3>
+          <p>Check the details, edit any line items, add GST or notes. Everything is editable before you send.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Send and get paid</h3>
+          <p>Hit send. A professional PDF invoice lands in your client's inbox instantly. Track who's paid, who hasn't, and send reminders automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything you<br><span>need. Nothing</span><br>you don't.</h2>
+    <div class="features-grid">
+      <div class="feature-card wide reveal">
+        <div class="feature-icon">🎙️</div>
+        <h3>Voice to invoice in 30 seconds</h3>
+        <p>Speak on the job site and your invoice is ready to send before you get back to the truck. No laptop. No desk. Just your phone.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📄</div>
+        <h3>Professional PDF invoices</h3>
+        <p>Your clients receive a polished, branded PDF every time.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔔</div>
+        <h3>Auto reminders</h3>
+        <p>Automatic payment reminders sent at 7, 14, and 30 days.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">💰</div>
+        <h3>Outstanding balance</h3>
+        <p>See exactly what you're owed at a glance every time you open the app.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3>Business insights</h3>
+        <p>Revenue charts, collection rate, average invoice value — know your numbers.</p>
+      </div>
+      <div class="feature-card wide reveal">
+        <div class="feature-icon">⚡</div>
+        <h3>Quotes too</h3>
+        <p>Send quotes the same way — speak it, review it, send it. Convert a quote to an invoice with one tap when the job is done.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SCREENSHOTS -->
+  <section class="screenshots-section" id="screenshots">
+    <div class="section-label" style="text-align:center; padding-top:80px;">The App</div>
+    <h2 class="section-title" style="text-align:center; padding: 0 24px 48px;">See it in <span>action.</span></h2>
+
+    <div class="screenshots-scroll">
+
+      <!-- Screen 1: Home Dashboard -->
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Dashboard</div>
+        <div class="ss-phone">
+          <div class="ss-notch"></div>
+          <div class="ss-hero-bar">
+            <div class="ss-date">Thu 4 June</div>
+            <div class="ss-greeting">John, here's your<br>financial overview.</div>
+            <div class="ss-bal-card">
+              <div class="ss-bal-label">TOTAL OUTSTANDING</div>
+              <div class="ss-bal-value">$5,830.00</div>
+              <div class="ss-bal-sub">18 unpaid invoices</div>
+            </div>
+            <div class="ss-stats-row">
+              <div class="ss-stat">
+                <div class="ss-stat-label">PAID THIS MONTH</div>
+                <div class="ss-stat-val">$1,530.00</div>
+              </div>
+              <div class="ss-stat">
+                <div class="ss-stat-label">TOTAL EARNED</div>
+                <div class="ss-stat-val">$12,480</div>
+              </div>
+            </div>
+          </div>
+          <div class="ss-body">
+            <div class="ss-mic-btn">
+              <div style="font-size:20px; margin-bottom:4px;">🎙️</div>
+              <div style="font-size:11px; font-weight:700; color:#0a0a0a;">Speak your invoice</div>
+              <div style="font-size:9px; color:rgba(0,0,0,0.5);">client · work done · amount</div>
+            </div>
+            <div class="ss-manual-btn">+ Enter manually</div>
+            <div class="ss-section-hdr">
+              <span>Recent invoices</span><span style="color:#aaa;">See all →</span>
+            </div>
+            <div class="ss-invoice-list">
+              <div class="ss-inv-row">
+                <div class="ss-init-circle">MW</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Marcus Webb</div>
+                  <div class="ss-inv-meta">INV-001 · 20 Apr</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$357.50</div>
+                  <div class="ss-badge ss-paid">Paid</div>
+                </div>
+              </div>
+              <div class="ss-inv-row">
+                <div class="ss-init-circle">AT</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Angela Torres</div>
+                  <div class="ss-inv-meta">INV-007 · 27 May</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$280.50</div>
+                  <div class="ss-badge ss-unpaid">Unpaid</div>
+                </div>
+              </div>
+              <div class="ss-inv-row" style="border-bottom:none">
+                <div class="ss-init-circle">GH</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Gary Hutchins</div>
+                  <div class="ss-inv-meta">INV-009 · 17 May</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$858.00</div>
+                  <div class="ss-badge ss-overdue">Overdue</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2: Voice Recording -->
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Voice Invoice</div>
+        <div class="ss-phone">
+          <div class="ss-notch"></div>
+          <div class="ss-hero-bar" style="text-align:center; padding-bottom:20px;">
+            <div style="font-size:14px; font-weight:800; color:white; margin-bottom:4px;">JobDone</div>
+            <div style="font-size:10px; color:#FFD100;">Speak clearly — I'm listening</div>
+          </div>
+          <div class="ss-body" style="display:flex; flex-direction:column; align-items:center; padding-top:20px;">
+            <div style="font-size:40px; font-weight:800; color:white; letter-spacing:-2px; margin-bottom:4px;">00:08</div>
+            <div style="font-size:10px; color:#888; margin-bottom:32px;">Recording...</div>
+            <div class="ss-mic-ring-active">
+              <div style="font-size:30px;">🎙️</div>
+            </div>
+            <div style="font-size:10px; color:#888; margin-top:14px; margin-bottom:24px;">Tap to stop</div>
+            <div class="ss-transcript-card">
+              <div style="font-size:8px; color:#FFD100; margin-bottom:4px;">HEARD:</div>
+              <div style="font-size:10px; color:#aaa; line-height:1.5; font-style:italic;">"Invoice for Chris Drummond at chris dot drummond at gmail dot com. Gas fitting BBQ connection $220, call out fee $80."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Invoice Preview -->
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Review Invoice</div>
+        <div class="ss-phone">
+          <div class="ss-notch"></div>
+          <div class="ss-hero-bar" style="text-align:center; padding-bottom:16px;">
+            <div style="font-size:13px; font-weight:800; color:white;">Review Invoice</div>
+            <div style="font-size:9px; color:#FFD100; margin-top:2px;">INV-011</div>
+          </div>
+          <div class="ss-body" style="padding:10px 12px;">
+            <div class="ss-card">
+              <div class="ss-card-label">BILL TO</div>
+              <div style="font-size:11px; font-weight:600; color:#0a0a0a; margin-bottom:1px;">Chris Drummond</div>
+              <div style="font-size:9px; color:#888;">chris.drummond@gmail.com</div>
+              <div class="ss-divider"></div>
+              <div class="ss-card-label">LINE ITEMS</div>
+              <div class="ss-line-item">
+                <span>Gas fitting — BBQ connection</span>
+                <span>$220.00</span>
+              </div>
+              <div class="ss-line-item">
+                <span>Call out fee</span>
+                <span>$80.00</span>
+              </div>
+              <div class="ss-divider"></div>
+              <div class="ss-line-item" style="font-size:9px; color:#666;">
+                <span>Subtotal</span><span>$300.00</span>
+              </div>
+              <div class="ss-line-item" style="font-size:9px; color:#666;">
+                <span>GST (10%)</span><span>$30.00</span>
+              </div>
+              <div class="ss-line-item" style="font-size:11px; font-weight:800; color:#0a0a0a; margin-top:4px;">
+                <span>Total</span><span style="color:#FFD100;">$330.00</span>
+              </div>
+              <div style="font-size:8px; color:#aaa; text-align:center; margin-top:6px;">Payment due in 14 days</div>
+            </div>
+            <div class="ss-send-btn">Send Invoice</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: Invoices List -->
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Invoices</div>
+        <div class="ss-phone">
+          <div class="ss-notch"></div>
+          <div class="ss-hero-bar" style="text-align:center; padding-bottom:16px;">
+            <div style="font-size:16px; font-weight:800; color:white;">Invoices</div>
+            <div style="font-size:8px; color:#FFD100; margin-top:3px;">↓ Export CSV</div>
+          </div>
+          <div class="ss-body" style="padding: 8px 10px;">
+            <div style="display:flex; gap:6px; margin-bottom:8px; justify-content:center;">
+              <div class="ss-filter-pill ss-filter-active">All</div>
+              <div class="ss-filter-pill">Unpaid</div>
+              <div class="ss-filter-pill">Paid</div>
+              <div class="ss-filter-pill">Quote</div>
+            </div>
+            <div class="ss-invoice-list" style="border-radius:10px;">
+              <div class="ss-inv-row" style="border-left:3px solid #ef4444;">
+                <div class="ss-init-circle">GH</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Gary Hutchins</div>
+                  <div class="ss-inv-meta" style="color:#ef4444;">18 days overdue</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$858.00</div>
+                  <div class="ss-badge ss-overdue">Overdue</div>
+                </div>
+              </div>
+              <div class="ss-inv-row">
+                <div class="ss-init-circle">BW</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Brendan Walsh</div>
+                  <div class="ss-inv-meta">INV-006 · 25 May</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$720.50</div>
+                  <div class="ss-badge ss-unpaid">Unpaid</div>
+                </div>
+              </div>
+              <div class="ss-inv-row">
+                <div class="ss-init-circle">NC</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Nathan Cross</div>
+                  <div class="ss-inv-meta">QTE-001 · 29 May</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$4,180.00</div>
+                  <div class="ss-badge ss-quote">Quote</div>
+                </div>
+              </div>
+              <div class="ss-inv-row">
+                <div class="ss-init-circle">PP</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Priya Patel</div>
+                  <div class="ss-inv-meta">INV-004 · 13 May</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$1,727.00</div>
+                  <div class="ss-badge ss-paid">Paid</div>
+                </div>
+              </div>
+              <div class="ss-inv-row" style="border-bottom:none">
+                <div class="ss-init-circle">SN</div>
+                <div style="flex:1">
+                  <div class="ss-inv-name">Sarah Nguyen</div>
+                  <div class="ss-inv-meta">INV-002 · 27 Apr</div>
+                </div>
+                <div style="text-align:right">
+                  <div class="ss-inv-amt">$1,617.00</div>
+                  <div class="ss-badge ss-paid">Paid</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 5: Success -->
+      <div class="screenshot-wrap">
+        <div class="screenshot-label">Invoice Sent</div>
+        <div class="ss-phone">
+          <div class="ss-notch"></div>
+          <div class="ss-hero-bar" style="text-align:center; padding: 20px 16px 24px;">
+            <div class="ss-check-ring">✓</div>
+            <div style="font-size:16px; font-weight:800; color:white; margin-bottom:4px;">Invoice sent.</div>
+            <div style="font-size:9px; color:#FFD100;">Emailed to chris.drummond@gmail.com</div>
+            <div style="font-size:8px; color:rgba(255,209,0,0.4); margin-top:2px;">A copy is in your inbox too</div>
+          </div>
+          <div class="ss-body" style="padding:10px 12px;">
+            <div class="ss-card" style="margin-bottom:10px;">
+              <div class="ss-summary-row"><span class="ss-sum-label">Invoice</span><span class="ss-sum-val">INV-011</span></div>
+              <div class="ss-summary-row"><span class="ss-sum-label">Client</span><span class="ss-sum-val">Chris Drummond</span></div>
+              <div class="ss-summary-row"><span class="ss-sum-label">Amount</span><span style="font-size:12px; font-weight:800; color:#0a0a0a;">$330.00</span></div>
+              <div class="ss-summary-row" style="border-bottom:none"><span class="ss-sum-label">Due</span><span class="ss-sum-val">18 June 2026</span></div>
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:8px;">
+              <div class="ss-share-btn">💬 WhatsApp</div>
+              <div class="ss-share-btn">📱 SMS</div>
+              <div class="ss-share-btn">↗ Share</div>
+            </div>
+            <div class="ss-send-btn">Send another invoice</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHO IT'S FOR -->
+  <section class="proof-section reveal">
+    <div class="section-label">Who it's for</div>
+    <h2 class="section-title">Built for<br><span>every trade.</span></h2>
+    <div class="trades-grid">
+      <div class="trade-pill">🔧 Plumbers</div>
+      <div class="trade-pill">⚡ Electricians</div>
+      <div class="trade-pill">🏗️ Builders</div>
+      <div class="trade-pill">🎨 Painters</div>
+      <div class="trade-pill">❄️ HVAC</div>
+      <div class="trade-pill">🪚 Carpenters</div>
+      <div class="trade-pill">🔑 Locksmiths</div>
+      <div class="trade-pill">🌿 Landscapers</div>
+      <div class="trade-pill">🧹 Cleaners</div>
+      <div class="trade-pill">+ More</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="section-label" style="text-align:center;">Pricing</div>
+    <h2 class="section-title">Simple.<br><span>Affordable.</span></h2>
+
+    <div class="promo-banner reveal">
+      <p>🔥 Early adopter offer — first 50 users only</p>
+    </div>
+
+    <div class="pricing-card reveal">
+      <div class="pricing-label">Early Adopter Price</div>
+      <div class="pricing-amount">$4.99</div>
+      <div class="pricing-per">/month for first 3 months</div>
+      <div class="pricing-note">then $6.99/month — cancel anytime</div>
+      <ul class="pricing-features">
+        <li>Unlimited invoices &amp; quotes</li>
+        <li>Voice to invoice in 30 seconds</li>
+        <li>Professional PDF emails</li>
+        <li>Automatic payment reminders</li>
+        <li>Outstanding balance tracking</li>
+        <li>Business insights dashboard</li>
+      </ul>
+      <a href="#signup" class="btn-primary" style="display:block;">Claim Early Adopter Price</a>
+    </div>
+    <p class="pricing-regular reveal">Invoice Simple charges $14.99/mo. JobDone is $6.99/mo — and you never have to type again.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EMAIL SIGNUP -->
+  <section class="signup-section" id="signup">
+    <div class="signup-card reveal">
+      <h2>Get <span>Early</span> Access</h2>
+      <p>Join the waitlist and lock in the early adopter price. We'll notify you the moment the app is live.</p>
+      <form class="signup-form" onsubmit="handleSignup(event)">
+        <input type="text" class="signup-input" placeholder="Your name" id="signup-name" required>
+        <input type="email" class="signup-input" placeholder="Your email" id="signup-email" required>
+        <select class="signup-input" id="signup-trade" style="appearance:none; cursor:pointer;">
+          <option value="" disabled selected>Your trade</option>
+          <option>Plumber</option>
+          <option>Electrician</option>
+          <option>Builder / General Contractor</option>
+          <option>Painter</option>
+          <option>HVAC Technician</option>
+          <option>Carpenter</option>
+          <option>Locksmith</option>
+          <option>Landscaper</option>
+          <option>Cleaner</option>
+          <option>Other</option>
+        </select>
+        <button type="submit" class="btn-primary" id="signup-btn">Secure My Early Adopter Price</button>
+      </form>
+      <p class="signup-note">No credit card needed. We'll email you when we launch.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Job<span>Done</span></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/support.html">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 JobDone. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    function handleSignup(e) {
+      e.preventDefault();
+      const btn = document.getElementById('signup-btn');
+      const name = document.getElementById('signup-name').value;
+      btn.textContent = "You're on the list! ✓";
+      btn.style.background = '#15803d';
+      btn.style.color = 'white';
+      btn.disabled = true;
+    }
+  </script>
+
+</body>
+</html>
